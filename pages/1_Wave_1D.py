@@ -3,55 +3,101 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-st.set_page_config(page_title="1D Wave Simulation", layout="wide")
+# Page configuration
+st.set_page_config(page_title="🌊 Wave: 1D Simulation", layout="wide")
 
-st.title("🌊 1D Wave Simulation")
-st.markdown("Configure the wave parameters and observe a beautiful animation and energy plots.")
+# Title
+st.title("🌈 1D Wave Simulation — Explore Vibrations on a String")
+st.markdown("""
+Visualize how waves evolve over space and time using colorful 3D plots and energy analysis.
 
-# --- Sidebar Parameters ---
-st.sidebar.header("⚙️ Wave Settings")
+Dive into the fascinating physics of wave motion with mathematical explanations and real-life analogies.
+
+---
+""")
+
+# --- Theory Section ---
+with st.expander("📘 Theory & Real-Life Applications", expanded=True):
+    st.markdown(r"""
+The **1D wave equation** describes vibrations on a string:
+
+$$
+\frac{\partial^2 u}{\partial t^2} = c^2 \cdot \frac{\partial^2 u}{\partial x^2}
+$$
+
+Where:
+- \( u(x,t) \) — displacement of the wave  
+- \( c \) — speed of propagation
+
+---
+
+### 🎼 Examples in Real Life:
+- **Guitar string vibration** → standing wave
+- **Tsunami wave** → traveling wave
+- **Voice in tube** → wave with boundary reflections
+
+---
+
+### 🔬 Numerical Insight:
+We simulate wave motion analytically by generating surface evolution over space \( x \) and time \( t \).  
+This helps us visualize standing vs traveling wave patterns, and analyze kinetic/potential energy.
+""")
+
+# --- Sidebar ---
+st.sidebar.header("🎛️ Configure Wave")
 wave_type = st.sidebar.selectbox("Wave Type", ["Standing Wave", "Traveling Wave"])
 amplitude = st.sidebar.slider("Amplitude (A)", 0.1, 5.0, 1.0)
 wavelength = st.sidebar.slider("Wavelength (λ)", 0.5, 5.0, 2.0)
-speed = st.sidebar.slider("Wave Speed (v)", 0.5, 5.0, 1.0)
-duration = st.sidebar.slider("Animation Duration (s)", 2, 10, 5)
+speed = st.sidebar.slider("Wave Speed (v)", 0.1, 5.0, 1.0)
+duration = st.sidebar.slider("Simulation Duration (s)", 2, 10, 5)
 
-st.sidebar.markdown("Created with ❤️ as part of the global **WaveLab Project**")
+st.sidebar.markdown("---")
 
-# --- Space and Time ---
-x = np.linspace(0, 10, 200)
-t_values = np.linspace(0, duration, 100)
-X, T = np.meshgrid(x, t_values)
 
-# --- Wave Calculation ---
+# --- Simulation Grid ---
+x = np.linspace(0, 10, 300)
+t_vals = np.linspace(0, duration, 120)
+X, T = np.meshgrid(x, t_vals)
+
+# --- Wave Computation ---
 if wave_type == "Standing Wave":
     Y = amplitude * np.sin(2 * np.pi * x / wavelength) * np.cos(2 * np.pi * speed * T / wavelength)
-else:  # Traveling Wave
+else:
     Y = amplitude * np.sin(2 * np.pi * (X - speed * T) / wavelength)
 
 # --- Energy Computation ---
-kinetic_energy = 0.5 * (2 * np.pi * amplitude / wavelength) ** 2 * np.cos(2 * np.pi * speed * T / wavelength) ** 2
-potential_energy = 0.5 * (2 * np.pi * amplitude / wavelength) ** 2 * np.sin(2 * np.pi * X / wavelength) ** 2
+omega = 2 * np.pi * speed / wavelength
+k = 2 * np.pi / wavelength
+KE = 0.5 * (omega * amplitude * np.cos(omega * T)) ** 2
+PE = 0.5 * (k * amplitude * np.sin(k * X)) ** 2
+TE = KE + PE
 
-# --- 3D Wave Surface Plot ---
-st.subheader("🎥 Wave Over Time (3D Plot)")
-
+# --- 3D Surface Plot ---
+st.subheader("🌄 Wave Propagation (3D Visualization)")
 fig = plt.figure(figsize=(10, 5))
 ax = fig.add_subplot(111, projection='3d')
-surface = ax.plot_surface(X, T, Y, cmap=cm.viridis)
+ax.plot_surface(X, T, Y, cmap="coolwarm", edgecolor='none', antialiased=True)
 ax.set_xlabel("Position (x)")
 ax.set_ylabel("Time (t)")
-ax.set_zlabel("Amplitude")
+ax.set_zlabel("Displacement (u)")
+ax.set_title(f"{wave_type} — 3D Dynamic Profile", fontsize=14)
 st.pyplot(fig)
 
 # --- Energy Plot ---
-st.subheader("⚡ Wave Energy Over Time")
-
-fig2, ax2 = plt.subplots(figsize=(8, 3))
-ax2.plot(t_values, kinetic_energy.mean(axis=1), label="Kinetic Energy", color='blue')
-ax2.plot(t_values, potential_energy.mean(axis=1), label="Potential Energy", color='red')
+st.subheader("⚡ Energy Dynamics")
+fig2, ax2 = plt.subplots(figsize=(9, 3.5))
+ax2.plot(t_vals, KE.mean(axis=1), label="Kinetic Energy", color='#1f77b4', linewidth=2)
+ax2.plot(t_vals, PE.mean(axis=1), label="Potential Energy", color='#ff7f0e', linewidth=2)
+ax2.plot(t_vals, TE.mean(axis=1), label="Total Energy", color='#2ca02c', linestyle='--', linewidth=2)
 ax2.set_xlabel("Time (t)")
-ax2.set_ylabel("Energy")
+ax2.set_ylabel("Average Energy")
+ax2.set_title("Energy Distribution Over Time")
+ax2.grid(True, linestyle='--', alpha=0.6)
 ax2.legend()
-ax2.grid(True)
 st.pyplot(fig2)
+
+# Footer
+st.markdown("""
+---
+🔗 This page is part of the **Wave Simulation Lab** — a visual learning project for physics and engineering.
+""")

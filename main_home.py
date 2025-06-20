@@ -1,47 +1,51 @@
 import streamlit as st
 
 # --- Page settings ---
-st.set_page_config(page_title="Wave Simulation Lab", layout="wide")
+st.set_page_config(page_title="🌐 Wave Simulation Lab", layout="wide")
 
 # --- Title and intro ---
-st.title("🌐 Wave Simulation Laboratory")
+st.title("🌊 Wave Simulation Laboratory")
 st.markdown("""
-Welcome to the **Wave Simulation Lab** — an interactive environment where you can explore wave phenomena using simulations.
+Welcome to the **Wave Simulation Lab** — a modern interactive environment to explore and simulate wave phenomena through visual, mathematical and auditory experiments.
 
-This tool is designed for students, researchers, and enthusiasts interested in physics, mathematics, acoustics, and signal processing.
-
----  
+This lab is designed for:
+- 🧑‍🎓 Students studying physics or computer simulations  
+- 🧑‍🔬 Researchers in acoustics, quantum modeling, or signal processing  
+- 👩‍💻 Developers interested in scientific visualization and interaction  
 """)
 
-# --- Project overview ---
+# --- Project Overview ---
 st.header("📘 Project Overview")
 
 st.markdown("""
-This project includes simulations of:
+Our lab includes the following modules:
 
-🔹 **1D Wave Propagation** – Study of waves on a string with damping and external forces  
-🔹 **2D Wave Interference** – Visualization of constructive and destructive interference  
-🔹 **Wave Packets** – Localized groups of waves representing quantum behavior  
-🔹 **Fourier Transform** – Decomposition of waves into frequency components  
-🔹 **Energy Analysis** – Tracking wave energy over time  
-🔹 **Sound Wave Modeling** – Understanding real acoustic phenomena
+1. **1D Wave Propagation** – Modeling waves on a string using finite difference methods, including damping and forcing  
+2. **2D Wave Interference** – Visualizing how two waves interfere constructively or destructively  
+3. **Wave Energy** – Tracking and comparing kinetic and potential energy over time  
+4. **Fourier Transform** – Transforming signals from time to frequency domain  
+5. **Wave Packet** – Simulating localized bursts of wave energy, resembling quantum behavior  
+6. **Sound Wave** – Creating and listening to simulated audio waves  
+7. **Wave Animation** – Real-time animation of standing and traveling waves in 3D  
+8. **Virtual String** – Musical string simulation with sound, waveform, and instrument selection  
 
-Each module allows you to interactively modify parameters and visualize the effects.
+Each simulation provides:
+- 🔧 Parameter sliders for full control  
+- 📊 Real-time visualization (2D, 3D, animated)  
+- 🧠 Theoretical explanations and formulas  
+- 🎵 Interactive sound when applicable  
 """)
 
 # --- Navigation Tips ---
 st.header("🧭 How to Navigate")
 
 st.markdown("""
-Use the sidebar on the left to navigate between different simulation modules.
+Use the left sidebar to select a simulation topic.  
+You can interact with each simulation using sliders and checkboxes.
 
-Each page offers:
-- Interactive sliders for parameters
-- Visual output (2D/3D/animated)
-- Descriptions and physical interpretations
-
+> 🔁 Come back to this **main home** any time by clicking "main home" in the sidebar.
 """)
 
 # --- Footer ---
-st.markdown("""---""")
-st.caption("👩‍💻 Developed by Leila Yerzhankyzy  2025")
+st.markdown("---")
+st.caption("👩‍💻 Created by Leila Yerzhankyzy (2025) — Wave Simulation Lab")
