@@ -90,8 +90,8 @@ u(x,t) = A \cdot e^{-\frac{(x - vt)^2}{2\sigma^2}} \cdot \cos(kx - \omega t)
 
 st.markdown("""
 - \( A \) — amplitude  
-- \( \sigma \) — packet width  
-- \( k \), \( \omega \) — wave number and frequency  
+- $ \sigma $ — packet width  
+- $k$, $ \omega $ — wave number and frequency  
 - Shows **group velocity**, **dispersion**  
 """)
 
